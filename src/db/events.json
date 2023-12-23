@@ -1,0 +1,52 @@
+[
+    {
+      "date": "2020-01-01",
+      "tittle": "Dune",
+      "description": "A science fiction novel by Frank Herbert"
+    },
+    {
+      "date": "2020-01-02",
+      "tittle": "Ender's Game",
+      "description": "A military science fiction novel by Orson Scott Card"
+    },
+    {
+      "date": "2020-01-03",
+      "tittle": "Foundation",
+      "description": "A science fiction novel by Isaac Asimov"
+    },
+    {
+      "date": "2020-01-04",
+      "tittle": "The Hitchhiker's Guide to the Galaxy",
+      "description": "A comedy science fiction series by Douglas Adams"
+    },
+    {
+      "date": "2020-01-05",
+      "tittle": "1984",
+      "description": "A dystopian novel by George Orwell"
+    },
+    {
+      "date": "2020-01-06",
+      "tittle": "Brave New World",
+      "description": "A dystopian novel by Aldous Huxley"
+    },
+    {
+      "date": "2020-01-07",
+      "tittle": "Neuromancer",
+      "description": "A cyberpunk novel by William Gibson"
+    },
+    {
+      "date": "2020-01-08",
+      "tittle": "Snow Crash",
+      "description": "A science fiction novel by Neal Stephenson"
+    },
+    {
+      "date": "2020-01-09",
+      "tittle": "The Martian",
+      "description": "A science fiction novel by Andy Weir"
+    },
+    {
+      "date": "2020-01-10",
+      "tittle": "Ready Player One",
+      "description": "A science fiction novel by Ernest Cline"
+    }
+  ]
