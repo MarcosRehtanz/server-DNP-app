@@ -1,0 +1,10 @@
+{
+    "name": "server",
+    "builds": [
+        {
+            "src": "index.js",
+            "use": "@now/node-server"
+        }
+    ],
+    "version": 2
+}
