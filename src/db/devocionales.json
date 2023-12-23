@@ -1,0 +1,52 @@
+[
+    {
+        "title": "Dune",
+        "description": "A science fiction novel by American author Frank Herbert.",
+        "icon": "book"
+    },
+    {
+        "title": "Foundation",
+        "description": "A science fiction novel series by American author Isaac Asimov.",
+        "icon": "book"
+    },
+    {
+        "title": "Neuromancer",
+        "description": "A science fiction novel by American-Canadian writer William Gibson.",
+        "icon": "book"
+    },
+    {
+        "title": "1984",
+        "description": "A dystopian novel by English author George Orwell.",
+        "icon": "book"
+    },
+    {
+        "title": "Brave New World",
+        "description": "A dystopian novel by English author Aldous Huxley.",
+        "icon": "book"
+    },
+    {
+        "title": "The Hitchhiker's Guide to the Galaxy",
+        "description": "A comedy science fiction series by British author Douglas Adams.",
+        "icon": "book"
+    },
+    {
+        "title": "Ender's Game",
+        "description": "A military science fiction novel by American author Orson Scott Card.",
+        "icon": "book"
+    },
+    {
+        "title": "The War of the Worlds",
+        "description": "A science fiction novel by English author H.G. Wells.",
+        "icon": "book"
+    },
+    {
+        "title": "Snow Crash",
+        "description": "A science fiction novel by American writer Neal Stephenson.",
+        "icon": "book"
+    },
+    {
+        "title": "Fahrenheit 451",
+        "description": "A dystopian novel by American writer Ray Bradbury.",
+        "icon": "book"
+    }
+]
