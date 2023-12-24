@@ -1,10 +1,10 @@
 const { Router } = require("express");
-const devocionalesJSON = require('../db/devocionales.json');
+const DevocionalService = require('../services/db.service.js')
 
 const devocionalRoute = Router();
 
-devocionalRoute.get('/', (req, res) => {
-    res.status(200).send(devocionalesJSON)
-});
+const devocionalService = new DevocionalService();
+
+devocionalRoute.get('/', devocionalService.getAllDevs);
 
 module.exports = devocionalRoute;
