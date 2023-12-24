@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const DevocionalService = require('../services/db.service.js')
+const DevocionalService = require('../services/devocional.service.js')
 
 const devocionalRoute = Router();
 
