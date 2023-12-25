@@ -5,7 +5,8 @@ class UserService {
     async logIn(email){
         const sql = `
         SELECT
-            _password
+            _id id,
+            _password password
         FROM
             users
         WHERE
@@ -22,7 +23,13 @@ class UserService {
 
         const sql = `
         SELECT
-            _id id, _name name, _surname surname, _email email, _dob dob, _image image
+            _id id,
+            _name name,
+            _surname surname,
+            _email email,
+            _dob dob,
+            _rol rol,
+            _image image
         FROM
             users
         `;

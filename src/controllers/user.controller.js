@@ -1,7 +1,8 @@
 const UserService = require('../services/user.service.js')
-const fs = require('fs');
 const validates = require('../utils/validates.js');
 const Bycrpt = require('../models/bcrypt.model.js')
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 class UserController {
 
@@ -10,12 +11,16 @@ class UserController {
         console.log(email, password);
         try {
             const hash = await UserService.logIn(email);
-            console.log(password, hash);
-            const access = await Bycrpt.decode(password, hash['_password']);
-
-            res.status(access ? 202 : 401).json({access});
+            const access = await Bycrpt.decode(password, hash.password);
+            if (access) {
+                const user = await UserService.getUserById(hash.id);
+                const token = jwt.sign({ ...user }, process.env.PRIVATE_KEY);
+                res.status(202).json({ token });
+            } else {
+                res.status(401).json({ message: 'Access denegated' });
+            }
         } catch (error) {
-            res.status(400).json({error: error});
+            res.status(400).json({ error: error });
         }
     }
     async getAllUsers(_, res) {
@@ -48,7 +53,7 @@ class UserController {
             const hash = await Bycrpt.encode(password);
 
             const user = await UserService.postUser(name, surname, email, dob, hash);
-            res.status(200).send({message: user});
+            res.status(200).send({ message: user });
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
