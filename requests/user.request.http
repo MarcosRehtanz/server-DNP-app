@@ -16,7 +16,7 @@ content-type: application/json
 {
     "name": "Juan",
     "surname": "Mansilla",
-    "email": "juan1@mansilla.com",
+    "email": "juan123@mansilla.com",
     "dob": 123456789,
     "password": "@Juan123"
 }
@@ -26,7 +26,7 @@ content-type: application/json
 DELETE {{baseURL}}/1
 
 ###
-# GET All User
+# GET Login User
 POST {{baseURL}}/login HTTP/1.1
 content-type: application/json
 
