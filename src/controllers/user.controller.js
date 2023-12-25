@@ -11,16 +11,18 @@ class UserController {
         console.log(email, password);
         try {
             const hash = await UserService.logIn(email);
+            if(!Boolean(hash))
+                return res.status(401).json({ error: 'Email or Password Invalid' })
             const access = await Bycrpt.decode(password, hash.password);
             if (access) {
                 const user = await UserService.getUserById(hash.id);
                 const token = jwt.sign({ ...user }, process.env.PRIVATE_KEY);
                 res.status(202).json({ token });
             } else {
-                res.status(401).json({ message: 'Access denegated' });
+                res.status(401).json({ error: 'Email or Password Invalid' });
             }
         } catch (error) {
-            res.status(400).json({ error: error });
+            res.status(500).json({ error: error.message });
         }
     }
     async getAllUsers(_, res) {
