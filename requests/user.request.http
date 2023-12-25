@@ -1,5 +1,5 @@
-@baseURL = http://localhost:80/user
-# @baseURL = https://server-dnp.onrender.com/user
+# @baseURL = http://localhost:80/user
+@baseURL = https://server-dnp.onrender.com/user
 ###
 # GET All User
 GET {{baseURL}}
