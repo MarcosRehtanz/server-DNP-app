@@ -1,4 +1,3 @@
-const { response } = require('express');
 const { db } = require('../connect.db.js');
 
 class UserService {
@@ -46,7 +45,13 @@ class UserService {
     async getUserById(id) {
         const sql = `
         SELECT
-            _id id, _name name, _surname surname, _email email, _dob dob, _image image
+            _id id,
+            _name name,
+            _surname surname,
+            _email email,
+            _dob dob,
+            _rol rol,
+            _image image
         FROM
             users
         WHERE

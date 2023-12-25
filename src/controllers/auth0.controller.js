@@ -2,14 +2,18 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 class Auth0Controller {
-    pK = process.env.PRIMARY_KEY;
-    async validateRoll(req, res, next){
+    async validateRoll(req, res, next) {
         const token = req.get('Authorization');
-        const verify = jwt.verify(token,this.pK);
-        console.log(verify);
-        const decode = jwt.decode(token);
-        console.log(decode);
-        res.status(200).json({decode});
+        let verify
+        try {
+            verify = jwt.verify(token, process.env.PRIVATE_KEY);
+        } catch (error) {
+            return res.status(402).json({ error: error.message });
+        }
+        if (verify.rol != 'user')
+            next();
+        else
+            res.status(402).json({ error: `This user don't have permissions to publish` });
     }
 }
 

@@ -1,5 +1,5 @@
-# @baseURL = http://localhost:80/user
-@baseURL = https://server-dnp.onrender.com/user
+@baseURL = http://localhost:80/user
+# @baseURL = https://server-dnp.onrender.com/user
 ###
 # GET All User
 GET {{baseURL}}
@@ -31,7 +31,7 @@ POST {{baseURL}}/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "juan@mansilla.com",
+    "email": "juan123@mansilla.com",
     "password": "@Juan123"
 }
 ###
