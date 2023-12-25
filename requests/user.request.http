@@ -1,0 +1,27 @@
+@baseURL = http://localhost:
+###
+# GET All User
+GET {{baseURL}}/user
+
+###
+# GET User by Id
+GET {{baseURL}}/user/1
+
+###
+# POST User
+POST {{baseURL}}/user HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Brian",
+    "surname": "Padilla",
+    "email": "brian123@padilla.com",
+    "dob": 123456789,
+    "password": "123"
+}
+
+###
+# DELETE User by Id
+DELETE {{baseURL}}/user/1
+
+###
