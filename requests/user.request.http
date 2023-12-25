@@ -1,27 +1,37 @@
-@baseURL = http://localhost:
+@baseURL = http://localhost:80/user
+# @baseURL = https://server-dnp.onrender.com/user
 ###
 # GET All User
-GET {{baseURL}}/user
+GET {{baseURL}}
 
 ###
 # GET User by Id
-GET {{baseURL}}/user/1
+GET {{baseURL}}/1
 
 ###
 # POST User
-POST {{baseURL}}/user HTTP/1.1
+POST {{baseURL}} HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Brian",
-    "surname": "Padilla",
-    "email": "brian123@padilla.com",
+    "name": "Juan",
+    "surname": "Mansilla",
+    "email": "juan1@mansilla.com",
     "dob": 123456789,
-    "password": "123"
+    "password": "@Juan123"
 }
 
 ###
 # DELETE User by Id
-DELETE {{baseURL}}/user/1
+DELETE {{baseURL}}/1
 
+###
+# GET All User
+POST {{baseURL}}/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "juan@mansilla.com",
+    "password": "@Juan123"
+}
 ###

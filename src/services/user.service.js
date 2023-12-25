@@ -1,6 +1,23 @@
+const { response } = require('express');
 const { db } = require('../connect.db.js');
 
 class UserService {
+    async logIn(email){
+        const sql = `
+        SELECT
+            _password
+        FROM
+            users
+        WHERE
+            _email = ?
+        `;
+        return new Promise((response, reject)=>{
+            db.get(sql, [email], (err, row) => {
+                if (err) reject(err.message);
+                else response(row);
+            })
+        })
+    }
     async getAllUsers() {
 
         const sql = `
@@ -12,10 +29,10 @@ class UserService {
         // WHERE
         //     _deletedAt IS NULL
 
-        return new Promise((res, rej) => {
+        return new Promise((response, reject) => {
             db.all(sql, [], (err, rows) => {
-                if (err) rej(err);
-                else res(rows);
+                if (err) reject(err);
+                else response(rows);
             })
         })
     }
@@ -28,10 +45,10 @@ class UserService {
         WHERE
             _id = ?
         `;
-        return new Promise((res, rej) => {
+        return new Promise((response, reject) => {
             db.get(sql, [id], (err, row) => {
-                if (err) rej(err);
-                else res(row);
+                if (err) reject(err);
+                else response(row);
             })
         });
     }
@@ -43,12 +60,12 @@ class UserService {
         VALUES
             (${insert.map((_) => '?').join(',')})
         `;
-        return new Promise((res, rej) => {
+        return new Promise((response, reject) => {
             db.run(sql, insert, (err) => {
                 if (err) {
                     console.log(err);
-                    rej(err);
-                } else res(`${insert[0]} has been inserted`);
+                    reject(err);
+                } else response(`${insert[0]} has been inserted`);
             })
         })
     }
