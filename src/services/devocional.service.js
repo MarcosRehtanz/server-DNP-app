@@ -4,7 +4,16 @@ const { someNull } = require('../utils/validates.js')
 class DevocionalService {
     getAllDevs(req, res) {
 
-        const sql = `SELECT * FROM devotionals`
+        const sql = `
+        SELECT 
+            _id id,
+            _title title,
+            _description description,
+            _date date,
+            _author author
+        FROM
+            devotionals
+        `
         db.all(sql, [], (err, rows) => {
             if (err)
                 res.status(400).json(err.message);
@@ -19,7 +28,18 @@ class DevocionalService {
             return res.status(400).json('Invalid Id');
         }
 
-        const sql = `SELECT * FROM devotionals WHERE _id = ${id}`
+        const sql = `
+        SELECT
+            _id id,
+            _title title,
+            _description description,
+            _date date,
+            _author author
+        FROM
+            devotionals
+        WHERE
+            _id = ${id}
+        `
         db.get(sql, [], (err, row) => {
             if (err)
                 res.status(500).send('Internal server error')
