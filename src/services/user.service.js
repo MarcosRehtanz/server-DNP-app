@@ -4,7 +4,7 @@ class UserService {
     async logIn(email){
         const sql = `
         SELECT
-            _id id,
+            _userId userId,
             _password password
         FROM
             users
@@ -22,7 +22,7 @@ class UserService {
 
         const sql = `
         SELECT
-            _id id,
+            _userId userId,
             _name name,
             _surname surname,
             _email email,
@@ -45,7 +45,7 @@ class UserService {
     async getUserById(id) {
         const sql = `
         SELECT
-            _id id,
+            _userId userId,
             _name name,
             _surname surname,
             _email email,
@@ -55,7 +55,7 @@ class UserService {
         FROM
             users
         WHERE
-            _id = ?
+            _userId = ?
         `;
         return new Promise((response, reject) => {
             db.get(sql, [id], (err, row) => {
@@ -88,7 +88,7 @@ class UserService {
         SET
             _deletedAt = ${Date.now()}
         WHERE
-            _id = ? AND _deletedAt IS NULL
+            _userId = ? AND _deletedAt IS NULL
         `
         return new Promise((resolve, reject) => {
             db.run(sql, [id], (err) => {

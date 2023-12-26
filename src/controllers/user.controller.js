@@ -15,7 +15,7 @@ class UserController {
                 return res.status(401).json({ error: 'Email or Password Invalid' })
             const access = await Bycrpt.decode(password, hash.password);
             if (access) {
-                const user = await UserService.getUserById(hash.id);
+                const user = await UserService.getUserById(hash.userId);
                 const token = jwt.sign({ ...user }, process.env.PRIVATE_KEY);
                 res.status(202).json({ token });
             } else {
