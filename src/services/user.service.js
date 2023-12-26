@@ -1,7 +1,8 @@
 const { db } = require('../connect.db.js');
+const DataBaseModel = require('../models/dataBase.model.js');
 
 class UserService {
-    async logIn(email){
+    async logIn(email) {
         const sql = `
         SELECT
             _userId userId,
@@ -11,14 +12,14 @@ class UserService {
         WHERE
             _email = ?
         `;
-        return new Promise((response, reject)=>{
+        return new Promise((response, reject) => {
             db.get(sql, [email], (err, row) => {
                 if (err) reject(err.message);
                 else response(row);
             })
         })
     }
-    async getAllUsers() {
+    async getAll() {
 
         const sql = `
         SELECT
@@ -32,17 +33,10 @@ class UserService {
         FROM
             users
         `;
-        // WHERE
-        //     _deletedAt IS NULL
 
-        return new Promise((response, reject) => {
-            db.all(sql, [], (err, rows) => {
-                if (err) reject(err);
-                else response(rows);
-            })
-        })
+        return await DataBaseModel.getAll(sql);
     }
-    async getUserById(id) {
+    async getById(id) {
         const sql = `
         SELECT
             _userId userId,
@@ -57,31 +51,32 @@ class UserService {
         WHERE
             _userId = ?
         `;
-        return new Promise((response, reject) => {
-            db.get(sql, [id], (err, row) => {
-                if (err) reject(err);
-                else response(row);
-            })
-        });
+        return await DataBaseModel.get(sql, [id]);
     }
-    async postUser() {
-        const insert = [...Object.values(arguments), Date.now()]
+    async post(insert) {
         const sql = `
         INSERT INTO
             users (_name, _surname, _email, _dob, _password, _createdAt)
         VALUES
             (${insert.map((_) => '?').join(',')})
         `;
-        return new Promise((response, reject) => {
-            db.run(sql, insert, (err) => {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                } else response(`${insert[0]} has been inserted`);
-            })
-        })
+        return await DataBaseModel.post(sql, insert);
     }
-    async deleteUser(id) {
+    async update(insert) {
+        const sql = `
+        UPDATE
+            users
+        SET
+            _name = ?,
+            _surname = ?,
+            _dob = ?,
+            _updateAt = ?
+        WHERE
+            _userId = ?
+        `
+        return await DataBaseModel.update(sql, insert);
+    }
+    async disable(id) {
         const sql = `
         UPDATE 
             users
@@ -90,13 +85,7 @@ class UserService {
         WHERE
             _userId = ? AND _deletedAt IS NULL
         `
-        return new Promise((resolve, reject) => {
-            db.run(sql, [id], (err) => {
-                console.log(err);
-                if (err) reject(err);
-                else resolve(`User ${id} has been deleted`)
-            })
-        })
+        return await DataBaseModel.disable(sql, [id]);
     }
 }
 

@@ -11,7 +11,7 @@ class UserController {
         console.log(email, password);
         try {
             const hash = await UserService.logIn(email);
-            if(!Boolean(hash))
+            if (!Boolean(hash))
                 return res.status(401).json({ error: 'Email or Password Invalid' })
             const access = await Bycrpt.decode(password, hash.password);
             if (access) {
@@ -25,27 +25,27 @@ class UserController {
             res.status(500).json({ error: error.message });
         }
     }
-    async getAllUsers(_, res) {
+    async getAll(_, res) {
         try {
-            const users = await UserService.getAllUsers();
+            const users = await UserService.getAll();
             res.status(200).json(users);
         } catch (error) {
             res.status(400).json(error);
         }
     }
-    async getUserById(req, res) {
+    async getById(req, res) {
         const { id } = req.params;
         if (isNaN(Number(id))) {
             return res.status(404).json(`{User ${id}} not found`);
         }
         try {
-            const user = await UserService.getUserById(id);
+            const user = await UserService.getById(id);
             res.status(200).json(user);
         } catch (error) {
             res.status(400).json(error)
         }
     }
-    async postUser(req, res) {
+    async post(req, res) {
         const { name, surname, email, dob, password } = req.body;
 
         if (validates.someNull(name, surname, email, dob, password))
@@ -53,20 +53,35 @@ class UserController {
 
         try {
             const hash = await Bycrpt.encode(password);
-
-            const user = await UserService.postUser(name, surname, email, dob, hash);
+            const insert = [name, surname, email, dob, hash, Date.now()];
+            const user = await UserService.post(insert);
             res.status(200).send({ message: user });
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
     }
-    async deleteUser(req, res) {
+    async update(req, res) {
+        const { id, name, surname, dob } = req.body;
+        console.log(req.body);
+        if (validates.someNull(id, name, surname, dob))
+            res.status(400).json({ id, name, surname, dob })
+
+        try {
+            const insert = [name, surname, dob, Date.now(), id];
+            const result = await UserService.update(insert);
+            res.status(200).send({ result });
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+
+    }
+    async disable(req, res) {
         const { id } = req.params;
         if (isNaN(Number(id)))
             return res.status(404).json(`{User ${id}} not found`);
 
         try {
-            const response = await UserService.deleteUser(id);
+            const response = await UserService.disable(id);
             res.status(200).json(response)
         } catch (error) {
             res.status(400).json(error)

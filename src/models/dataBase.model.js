@@ -31,6 +31,22 @@ class DataBaseModel {
             })
         })
     }
+    async update(sql, params){
+        return new Promise((resolve, reject) => {
+            db.run(sql, params, (err) => {
+                if (err) reject(err.message);
+                else resolve(`Register has been updated`)
+            })
+        })
+    }
+    async disable(sql, params = []) {
+        return new Promise((resolve, reject) => {
+            db.run(sql, params, (err) => {
+                if (err) reject(err.message);
+                else resolve(`Register has been disable`)
+            })
+        })
+    }
 }
 
 module.exports = new DataBaseModel()
