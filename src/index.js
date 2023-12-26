@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const morgan = require('morgan');
 
-const devocionalRoute = require('./router/devotional.js');
+const devocionalRoute = require('./router/devotional.route.js');
 const eventRoute = require('./router/events.js');
 const userRoute = require('./router/user.route.js');
 
