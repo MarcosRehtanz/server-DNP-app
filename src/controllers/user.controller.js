@@ -15,7 +15,7 @@ class UserController {
                 return res.status(401).json({ error: 'Email or Password Invalid' })
             const access = await Bycrpt.decode(password, hash.password);
             if (access) {
-                const user = await UserService.getUserById(hash.userId);
+                const user = await UserService.getById(hash.userId);
                 const token = jwt.sign({ ...user }, process.env.PRIVATE_KEY);
                 res.status(202).json({ token });
             } else {
@@ -57,7 +57,7 @@ class UserController {
             const user = await UserService.post(insert);
             res.status(200).send({ message: user });
         } catch (error) {
-            res.status(400).json({ error: error.message });
+            res.status(400).json({ error: error });
         }
     }
     async update(req, res) {
