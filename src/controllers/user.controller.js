@@ -17,7 +17,7 @@ class UserController {
             if (access) {
                 const user = await UserService.getById(hash.userId);
                 const token = jwt.sign({ ...user }, process.env.PRIVATE_KEY);
-                res.status(202).json({ token });
+                res.status(202).json({ token, user });
             } else {
                 res.status(401).json({ error: 'Email or Password Invalid' });
             }
@@ -61,7 +61,8 @@ class UserController {
         }
     }
     async update(req, res) {
-        const { id, name, surname, dob } = req.body;
+        const { id } = req.params;
+        const { name, surname, dob } = req.body;
         console.log(req.body);
         if (validates.someNull(id, name, surname, dob))
             res.status(400).json({ id, name, surname, dob })
