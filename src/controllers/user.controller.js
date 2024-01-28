@@ -8,7 +8,6 @@ class UserController {
 
     async logIn(req, res) {
         const { email, password } = req.body;
-        console.log(email, password);
         try {
             const hash = await UserService.logIn(email);
             if (!Boolean(hash))
@@ -22,6 +21,7 @@ class UserController {
                 res.status(401).json({ error: 'Email or Password Invalid' });
             }
         } catch (error) {
+            console.error(error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -30,6 +30,7 @@ class UserController {
             const users = await UserService.getAll();
             res.status(200).json(users);
         } catch (error) {
+            console.error(error);
             res.status(400).json(error);
         }
     }
@@ -42,6 +43,7 @@ class UserController {
             const user = await UserService.getById(id);
             res.status(200).json(user);
         } catch (error) {
+            console.error(error);
             res.status(400).json(error)
         }
     }
@@ -57,13 +59,13 @@ class UserController {
             const user = await UserService.post(insert);
             res.status(200).send({ message: user });
         } catch (error) {
+            console.error(error);
             res.status(400).json({ error: error });
         }
     }
     async update(req, res) {
         const { id } = req.params;
         const { name, surname, dob } = req.body;
-        console.log(req.body);
         if (validates.someNull(id, name, surname, dob))
             res.status(400).json({ id, name, surname, dob })
 
@@ -72,6 +74,7 @@ class UserController {
             const result = await UserService.update(insert);
             res.status(200).send({ result });
         } catch (error) {
+            console.error(error);
             res.status(400).json({ error: error.message });
         }
 
@@ -85,6 +88,7 @@ class UserController {
             const response = await UserService.disable(id);
             res.status(200).json(response)
         } catch (error) {
+            console.error(error);
             res.status(400).json(error)
         }
     }

@@ -8,17 +8,17 @@ class DevotionalController {
             const devotionals = await DevocionalService.getAll();
             res.status(200).json(devotionals);
         } catch (error) {
+            console.error(error);
             res.status(500).json({ error: error.message });
         }
     }
     async getDevotionalById(req, res) {
         const { id } = req.params;
-        console.log(id);
         try {
             const [devotional, status] = await DevocionalService.getById(id);
             res.status(status).json(devotional);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             res.status(500).send({error});
         }
     }
@@ -32,6 +32,7 @@ class DevotionalController {
             const response = await DevocionalService.post(insert);
             res.status(200).json({result: response});
         } catch (error) {
+            console.error(error);
             res.statu(500).json({error: error.message});
         }
     }

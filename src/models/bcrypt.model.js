@@ -14,7 +14,6 @@ class Bycrpt {
     async decode(password, passwordDB) {
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, passwordDB, function(err, result) {
-                console.log(err);
                 if(err) reject(err.message);
                 else resolve(result);
             });

@@ -11,6 +11,7 @@ class AuthorizationController {
             else
                 res.status(402).json({ error: `This user don't have permissions to publish` });
         } catch (error) {
+            console.error(error);
             res.status(402).json({ error: error.message });
         }
     }
