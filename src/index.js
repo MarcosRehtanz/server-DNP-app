@@ -3,7 +3,7 @@ require('dotenv').config();
 const morgan = require('morgan');
 
 const devocionalRoute = require('./router/devotional.route.js');
-const eventRoute = require('./router/events.js');
+const eventRoute = require('./router/event.route.js');
 const userRoute = require('./router/user.route.js');
 
 const sqlite = require('./connect.db.js')
