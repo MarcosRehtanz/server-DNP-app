@@ -11,7 +11,7 @@ class EventController {
             res.status(200).json(events);
         } catch (error) {
             console.error(error);
-            res.status(400).json(error);
+            res.status(500).json(error);
         }
     }
     async getById(req, res) {
@@ -24,7 +24,7 @@ class EventController {
             res.status(200).json(event);
         } catch (error) {
             console.error(error);
-            res.status(400).json(error)
+            res.status(500).json(error)
         }
     }
     async post(req, res) {
@@ -34,13 +34,12 @@ class EventController {
             res.status(400).json({ name, description, date })
 
         try {
-            const hash = await Bycrpt.encode(password);
-            const insert = [name, surname, email, dob, hash, Date.now()];
+            const insert = [name, description, email, dob, hash, Date.now()];
             const event = await EventService.post(insert);
             res.status(200).send({ message: event });
         } catch (error) {
             console.error(error);
-            res.status(400).json({ error: error });
+            res.status(500).json({ error: error });
         }
     }
     async update(req, res) {
@@ -55,7 +54,7 @@ class EventController {
             res.status(200).send({ result });
         } catch (error) {
             console.error(error);
-            res.status(400).json({ error: error.message });
+            res.status(500).json({ error: error.message });
         }
 
     }
@@ -69,7 +68,7 @@ class EventController {
             res.status(200).json(response)
         } catch (error) {
             console.error(error);
-            res.status(400).json(error)
+            res.status(500).json(error)
         }
     }
 }
