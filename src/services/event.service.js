@@ -33,7 +33,7 @@ class EventService {
     async post(insert) {
         const sql = `
         INSERT INTO
-            events (_name, _description, _date _createdAt)
+            events (_name, _description, _date, _createdAt)
         VALUES
             (${insert.map((_) => '?').join(',')})
         `;
