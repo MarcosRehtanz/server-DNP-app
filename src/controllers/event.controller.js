@@ -34,7 +34,7 @@ class EventController {
             res.status(400).json({ name, description, date })
 
         try {
-            const insert = [name, description, email, dob, hash, Date.now()];
+            const insert = [name, description, date, Date.now()];
             const event = await EventService.post(insert);
             res.status(200).send({ message: event });
         } catch (error) {
