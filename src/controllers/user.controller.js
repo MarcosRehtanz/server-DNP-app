@@ -57,7 +57,7 @@ class UserController {
             const hash = await Bycrpt.encode(password);
             const insert = [name, surname, email, dob, hash, Date.now()];
             const user = await UserService.post(insert);
-            res.status(200).send({ message: user });
+            res.status(200).send(user);
         } catch (error) {
             console.error(error);
             res.status(400).json({ error: error });
