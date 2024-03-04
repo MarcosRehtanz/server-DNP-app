@@ -15,9 +15,11 @@ class DevocionalService {
             users._image image
         FROM
             devotionals
+        ORDER BY
+            _date DESC
         INNER JOIN users
             ON users._userId = devotionals._userId
-        `
+        `;
         return await DataBaseModel.getAll(sql);
     }
     async getById(id) {
@@ -37,14 +39,10 @@ class DevocionalService {
             ON users._userId = devotionals._userId
         WHERE
             devotionals._devotionalId = ?
-        `
-        try {
-            const result = await DataBaseModel.get(sql, [id]);
-            return [result, (Boolean(result)) ? 200 : 404];
-        } catch (error) {
-            throw error
-        }
-    }
+        `;
+        const result = await DataBaseModel.get(sql, [id]);
+        return [result, (result) ? 200 : 404];
+	}
     async post(insert = []) {
         const sql = `
         INSERT INTO devotionals (_title, _description, _date, _userId)

@@ -173,7 +173,7 @@ UserRoute.delete('/:id', UserController.disable);
  *          500:
  *              description: Server Error
  */
-UserRoute.put('/:id', UserController.update)
+UserRoute.put('/:id', UserController.update);
 
 /**
  *  @swagger

@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 const { Router } = require('express');
-const Auth0Controller = require('../controllers/authorization.controller.js')
+const Auth0Controller = require('../controllers/authorization.controller.js');
 
 const EventController = require('../controllers/event.controller.js');
 const eventRoute = Router();
@@ -190,6 +190,6 @@ eventRoute.post('/', Auth0Controller.validateRoll, EventController.post);
  *          500:
  *              description: Server Error
  */
-eventRoute.put('/:id', Auth0Controller.validateRoll, EventController.update)
+eventRoute.put('/:id', Auth0Controller.validateRoll, EventController.update);
 
 module.exports = eventRoute;
