@@ -15,10 +15,10 @@ class DevocionalService {
             users._image image
         FROM
             devotionals
-        ORDER BY
-            _date DESC
         INNER JOIN users
             ON users._userId = devotionals._userId
+        ORDER BY
+            _date DESC
         `;
         return await DataBaseModel.getAll(sql);
     }
