@@ -58,7 +58,7 @@ class UserService {
         INSERT INTO
             users (_name, _surname, _email, _dob, _password, _createdAt)
         VALUES
-            (${insert.map((_) => '?').join(',')})
+            (${insert.map(() => '?').join(',')})
         `;
 		return await DataBaseModel.post(sql, insert);
 	}
