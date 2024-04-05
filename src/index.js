@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const cors = require('cors');
 const morgan = require('morgan');
 const swaggerDocs = require('../swagger.js');
 
@@ -13,6 +14,7 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
 
 app.use('/devotional', devocionalRoute);
 app.use('/event', eventRoute);

@@ -35,7 +35,7 @@ class EventService {
         INSERT INTO
             events (_name, _description, _date, _createdAt)
         VALUES
-            (${insert.map((_) => '?').join(',')})
+            (${insert.map(() => '?').join(',')})
         `;
 		return await DataBaseModel.post(sql, insert);
 	}

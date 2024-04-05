@@ -1,9 +1,8 @@
 const DataBaseModel = require('../models/dataBase.model.js');
 
 class DevocionalService {
-    async getAll() {
-
-        const sql = `
+	async getAll() {
+		const sql = `
         SELECT 
             _devotionalId id,
             _title title,
@@ -20,10 +19,10 @@ class DevocionalService {
         ORDER BY
             _date DESC
         `;
-        return await DataBaseModel.getAll(sql);
-    }
-    async getById(id) {
-        const sql = `
+		return await DataBaseModel.getAll(sql);
+	}
+	async getById(id) {
+		const sql = `
         SELECT
             _devotionalId id,
             _title title,
@@ -40,17 +39,17 @@ class DevocionalService {
         WHERE
             devotionals._devotionalId = ?
         `;
-        const result = await DataBaseModel.get(sql, [id]);
-        return [result, (result) ? 200 : 404];
+		const result = await DataBaseModel.get(sql, [id]);
+		return [result, (result) ? 200 : 404];
 	}
-    async post(insert = []) {
-        const sql = `
+	async post(insert = []) {
+		const sql = `
         INSERT INTO devotionals (_title, _description, _date, _userId)
             VALUES
-                (${insert.map((_) => '?').join(',')})
+                (${insert.map(() => '?').join(',')})
         `;
-        return await DataBaseModel.post(sql, insert);
-    }
+		return await DataBaseModel.post(sql, insert);
+	}
 
 }
 
