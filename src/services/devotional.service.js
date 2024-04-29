@@ -1,56 +1,40 @@
-const DataBaseModel = require('../models/dataBase.model.js');
+const DevotionalModel = require('../models/devotional.model');
 
-class DevocionalService {
-	async getAll() {
-		const sql = `
-        SELECT 
-            _devotionalId id,
-            _title title,
-            _description description,
-            _date date,
-            devotionals._userId userId,
-            users._name name,
-            users._surname surname,
-            users._image image
-        FROM
-            devotionals
-        INNER JOIN users
-            ON users._userId = devotionals._userId
-        ORDER BY
-            _date DESC
-        `;
-		return await DataBaseModel.getAll(sql);
-	}
-	async getById(id) {
-		const sql = `
-        SELECT
-            _devotionalId id,
-            _title title,
-            _description description,
-            _date date,
-            devotionals._userId userId,
-            _name name,
-            _surname surname,
-            _image image
-        FROM
-            devotionals
-        LEFT JOIN users
-            ON users._userId = devotionals._userId
-        WHERE
-            devotionals._devotionalId = ?
-        `;
-		const result = await DataBaseModel.get(sql, [id]);
-		return [result, (result) ? 200 : 404];
-	}
-	async post(insert = []) {
-		const sql = `
-        INSERT INTO devotionals (_title, _description, _date, _userId)
-            VALUES
-                (${insert.map(() => '?').join(',')})
-        `;
-		return await DataBaseModel.post(sql, insert);
-	}
+class DevotionalService {
+    async getAll() {
+        try {
+            const devotionals = await DevotionalModel.find({})
+                .populate('_userId', '_name _surname _image')
+                .sort({ _date: -1 });
+            return devotionals;
+        } catch (error) {
+            console.error('Error getting devotionals:', error);
+            throw error;
+        }
+    }
 
+    async getById(id) {
+        try {
+            const devotional = await DevotionalModel.findById(id)
+                .populate('_userId', '_name _surname _image');
+            if (!devotional) return [null, 404];
+            return [devotional, 200];
+        } catch (error) {
+            console.error('Error getting devotional by ID:', error);
+            throw error;
+        }
+    }
+
+    async post(devotionalData) {
+        try {
+            const newDevotional = new DevotionalModel(devotionalData);
+            await newDevotional.save();
+            return newDevotional;
+        } catch (error) {
+            console.error('Error creating devotional:', error);
+            throw error;
+        }
+    }
 }
 
-module.exports = new DevocionalService();
+module.exports = new DevotionalService();

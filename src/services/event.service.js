@@ -1,68 +1,58 @@
 'use strict';
-const DataBaseModel = require('../models/dataBase.model.js');
+const EventModel = require('../models/event.model');
 
 class EventService {
-	async getAll() {
+    async getAll() {
+        try {
+            const events = await EventModel.find({});
+            return events;
+        } catch (error) {
+            console.error('Error getting events:', error);
+            throw error;
+        }
+    }
 
-		const sql = `
-        SELECT
-            _eventId eventId,
-            _name name,
-            _description description,
-            _date date
-        FROM
-            events
-        `;
+    async getById(id) {
+        try {
+            const event = await EventModel.findById(id);
+            return event;
+        } catch (error) {
+            console.error('Error getting event by ID:', error);
+            throw error;
+        }
+    }
 
-		return await DataBaseModel.getAll(sql);
-	}
-	async getById(id) {
-		const sql = `
-        SELECT
-            _eventId eventId,
-            _name name,
-            _description description,
-            _date date
-        FROM
-            events
-        WHERE
-            _eventId = ?
-        `;
-		return await DataBaseModel.get(sql, [id]);
-	}
-	async post(insert) {
-		const sql = `
-        INSERT INTO
-            events (_name, _description, _date, _createdAt)
-        VALUES
-            (${insert.map(() => '?').join(',')})
-        `;
-		return await DataBaseModel.post(sql, insert);
-	}
-	async update(insert) {
-		const sql = `
-        UPDATE
-            events
-        SET
-            _name = ?,
-            _description = ?,
-            _date = ?
-        WHERE
-            _eventId = ?
-        `;
-		return await DataBaseModel.update(sql, insert);
-	}
-	async disable(id) {
-		const sql = `
-        UPDATE 
-            events
-        SET
-            _deletedAt = ${Date.now()}
-        WHERE
-            _eventId = ? AND _deletedAt IS NULL
-        `;
-		return await DataBaseModel.disable(sql, [id]);
-	}
+    async post(eventData) {
+        try {
+            const newEvent = new EventModel(eventData);
+            await newEvent.save();
+            return newEvent;
+        } catch (error) {
+            console.error('Error creating event:', error);
+            throw error;
+        }
+    }
+
+    async update(eventData) {
+        try {
+            const { _id, ...updateData } = eventData;
+            const updatedEvent = await EventModel.findByIdAndUpdate(_id, updateData, { new: true });
+            return updatedEvent;
+        } catch (error) {
+            console.error('Error updating event:', error);
+            throw error;
+        }
+    }
+
+    async disable(id) {
+        try {
+            const disabledEvent = await EventModel.findByIdAndUpdate(id, { _deletedAt: Date.now() }, { new: true });
+            return disabledEvent;
+        } catch (error) {
+            console.error('Error disabling event:', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = new EventService();
